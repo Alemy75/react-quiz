@@ -102,7 +102,6 @@ const Question = (props) => {
     const [progress, setProgress] = useState(progressStep)
 
     let nextQuestion = 0
-    let rightCount
 
     const questionCountHandler = (isCorrect) => {
         if (isCorrect === 1) {
