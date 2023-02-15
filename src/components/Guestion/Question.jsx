@@ -1,125 +1,25 @@
-import React, { useState } from "react"
+import React from "react"
 import Button from "../UI/Button"
 import s from './Question.module.scss'
+import {useSelector} from 'react-redux'
+import {useDispatch} from "react-redux";
+import {closeBtnHandler, questionCountHandler} from './../../store/quizSlice.js'
 
-const INITIAL_QUESTIONS = [
-    {
-        id: 0,
-        question: 'What is React?',
-        right: 0,
-        variants: [
-            {
-                id: 0,
-                answer: 'Library',
-                isCorrect: 1
-            },
-            {
-                id: 1,
-                answer: 'Framework',
-                isCorrect: 0
-            },
-            {
-                id: 2,
-                answer: 'Plug-in',
-                isCorrect: 0
-            }
-        ]
-    },
-    {
-        id: 1,
-        question: 'What is Redux?',
-        right: 2,
-        variants: [
-            {
-                id: 0,
-                answer: 'Plugin',
-                isCorrect: 0
-            },
-            {
-                id: 1,
-                answer: 'Framework',
-                isCorrect: 0
-            },
-            {
-                id: 2,
-                answer: 'State management library',
-                isCorrect: 1
-            }
-        ]
-    },
-    {
-        id: 2,
-        question: 'How reducer in Redux gets action?',
-        right: 2,
-        variants: [
-            {
-                id: 0,
-                answer: 'useSelector sends it',
-                isCorrect: 0
-            },
-            {
-                id: 1,
-                answer: 'useContect sends it',
-                isCorrect: 0
-            },
-            {
-                id: 2,
-                answer: 'useDispatch sends it',
-                isCorrect: 1
-            }
-        ]
-    },
-    {
-        id: 3,
-        question: 'What Redux method allows to group reducers',
-        right: 1,
-        variants: [
-            {
-                id: 0,
-                answer: 'groupReducer',
-                isCorrect: 0
-            },
-            {
-                id: 1,
-                answer: 'combineReducer',
-                isCorrect: 1
-            },
-            {
-                id: 2,
-                answer: 'rootReducer',
-                isCorrect: 0
-            }
-        ]
-    },
-];
 
-const progressStep = 100 / INITIAL_QUESTIONS.length
+const Question = () => {
 
-const Question = (props) => {
-    const [questionCount, setQuestionCount] = useState(0);
-    const [score, setScore] = useState(0)
-    const [showScore, setShowScore] = useState(false);
-    const [progress, setProgress] = useState(progressStep)
+    const INITIAL_QUESTIONS = useSelector(state => state.quiz.questions)
+    const questionCount = useSelector(state => state.quiz.questionCount)
+    const showScore = useSelector(state => state.quiz.showScore)
+    const score = useSelector(state => state.quiz.score)
+    const progress = useSelector(state => state.quiz.progress)
 
-    let nextQuestion = 0
+    const dispatch = useDispatch()
+    const endQuiz = () => dispatch(closeBtnHandler())
 
-    const questionCountHandler = (isCorrect) => {
-        if (isCorrect === 1) {
-            setScore(prev =>
-                prev + 1
-            )
-        }
-        nextQuestion = questionCount + 1
-
-        setProgress(prev => prev + progressStep)
-
-        if (nextQuestion < INITIAL_QUESTIONS.length) {
-            setQuestionCount(nextQuestion)
-        } else {
-            setShowScore(true)
-        }
-
-    }; 
+    const questionHandler = (isCorrect) => {
+        dispatch(questionCountHandler(isCorrect))
+    }
 
     return (
         <React.Fragment>
@@ -133,7 +33,7 @@ const Question = (props) => {
                         {
                             INITIAL_QUESTIONS[questionCount].variants.map((el) => (
                                 <div key={el.id} className={s.question__item}>
-                                    <Button onStart={() => questionCountHandler(el.isCorrect)}>
+                                    <Button onStart={() => questionHandler(el.isCorrect)}>
                                         {el.answer}
                                     </Button>
                                 </div>
@@ -156,7 +56,7 @@ const Question = (props) => {
                             
                         ))
                     }
-                    <Button className={s.finish_button} onStart={props.onClose}>Pass again</Button>   
+                    <Button className={s.finish__btn} onStart={endQuiz}>Pass again</Button>
                 </section>            
             }
         </React.Fragment>
