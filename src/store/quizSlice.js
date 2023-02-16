@@ -96,6 +96,72 @@ const quizSlice = createSlice({
                     }
                 ]
             },
+            {
+                id: 4,
+                question: 'How to get data from store?',
+                right: 0,
+                variants: [
+                    {
+                        id: 0,
+                        answer: 'useSelector',
+                        isCorrect: 1
+                    },
+                    {
+                        id: 1,
+                        answer: 'getSelector',
+                        isCorrect: 0
+                    },
+                    {
+                        id: 2,
+                        answer: 'useParameter',
+                        isCorrect: 0
+                    }
+                ]
+            },
+            {
+                id: 3,
+                question: 'What is a Event loop',
+                right: 0,
+                variants: [
+                    {
+                        id: 0,
+                        answer: 'JavaSript mechanics of task spliting',
+                        isCorrect: 1
+                    },
+                    {
+                        id: 1,
+                        answer: 'JS plug-in',
+                        isCorrect: 0
+                    },
+                    {
+                        id: 2,
+                        answer: 'JS data render cycle',
+                        isCorrect: 0
+                    }
+                ]
+            },
+            {
+                id: 3,
+                question: 'What is a Polyfill',
+                right: 2,
+                variants: [
+                    {
+                        id: 0,
+                        answer: 'JavaScript linter',
+                        isCorrect: 0
+                    },
+                    {
+                        id: 1,
+                        answer: 'JavaScript async operator',
+                        isCorrect: 0
+                    },
+                    {
+                        id: 2,
+                        answer: 'Mechanics that\'s allows to use new features with old lang standart',
+                        isCorrect: 1
+                    }
+                ]
+            },
         ],
         progress: 0,
         newCount: 0

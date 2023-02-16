@@ -49,7 +49,7 @@ const Question = () => {
                     <h3>Right answers:</h3>
                     {
                         INITIAL_QUESTIONS.map(el => (
-                            <div>
+                            <div key={el.id}>
                                 <p className={s.finish__text}>Question {el.id + 1}: {el.question}</p>
                                 <div className={s.finish__right}>{el.variants[el.right].answer}</div>
                             </div>
